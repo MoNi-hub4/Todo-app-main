@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const FirstSection = styled.div`
   position: relative;
+  display: block;
 `;
 
 export const Title = styled.h1`
@@ -17,6 +18,7 @@ export const Title = styled.h1`
 export const FirstSectionImage = styled.img`
   width: 100%;
   height: auto;
+  display: block;
 
   
 `;
