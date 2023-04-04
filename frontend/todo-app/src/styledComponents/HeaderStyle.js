@@ -2,13 +2,14 @@ import styled from "styled-components";
 
 export const FirstSection = styled.div`
   position: relative;
-  display: block;
+  height: 25vh;
+
 `;
 
 export const Title = styled.h1`
   position: absolute;
   top: 50px;
-  margin-left: 30px;
+  margin-left: 20px;
   color: #fff;
   text-transform: uppercase;
   font-weight: 600;
@@ -17,7 +18,7 @@ export const Title = styled.h1`
 
 export const FirstSectionImage = styled.img`
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
 
   
