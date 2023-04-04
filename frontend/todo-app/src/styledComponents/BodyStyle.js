@@ -35,7 +35,7 @@ export const TodoBox = styled.div`
 export const Todo = styled.div`
   display: flex;
   align-items: center;
-  padding-left: 60px;
+  padding-left: 20px;
   height: 50px;
   background: #fff;
   border-bottom: 1px solid hsl(233, 11%, 84%);
@@ -68,3 +68,24 @@ export const FilterSection = styled.div`
   gap: 25px;
   justify-content: center;
 `;
+
+
+
+export const Checked = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  border: ${props => props.isClicked ? "none" : "1px solid hsl(233, 11%, 84%)" };
+  background: ${props => props.isClicked ? "linear-gradient(to right ,  hsl(192, 100%, 67%) ,hsl(280, 87%, 65%))" : 0}
+  
+`;
+
+export const CheckedImg = styled.img`
+
+  transform: translate(-5%,15%);
+  display: block;
+`

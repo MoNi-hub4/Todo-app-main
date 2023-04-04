@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import {
+  Checked,
+  CheckedImg,
   CreateTodo,
   FilterSection,
   InputBox,
@@ -10,20 +12,29 @@ import {
   TodoDetailBox,
 } from "../styledComponents/BodyStyle";
 
+import CheckedIcon from "../images/icon-check.svg";
+
 const Body = () => {
+  const [isClicked, setisClicked] = useState(true);
+
   return (
     <SecondSection>
       <SectionContent>
         <CreateTodo>
-          <InputBox placeholder="Create a new todo..."></InputBox>
+          <InputBox
+            placeholder="Create a new todo..."
+            type="text"
+            name="task"
+          ></InputBox>
         </CreateTodo>
         <TodoBox>
-          <Todo>Jog around the part 3x</Todo>
-          <Todo>10 minutes meditation</Todo>
-          <Todo>Read for 1 hour</Todo>
-          <Todo>Jog around the part 3x</Todo>
-          <Todo>10 minutes meditation</Todo>
-          <Todo>Read for 1 hour</Todo>
+          <Todo>
+            <Checked isClicked = {isClicked} onClick={() => setisClicked(!isClicked)}>
+              {isClicked && <CheckedImg src={CheckedIcon}></CheckedImg>}
+            </Checked>
+            Jog around the part 3x
+          </Todo>
+
           <TodoDetailBox>
             <div>5 items left</div>
             <div>Clear Completed</div>
