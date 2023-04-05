@@ -35,10 +35,16 @@ export const TodoBox = styled.div`
 export const Todo = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding-left: 20px;
   height: 50px;
   background: #fff;
   border-bottom: 1px solid hsl(233, 11%, 84%);
+`;
+
+export const TodoDiv = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const TodoDetailBox = styled.div`
@@ -67,10 +73,7 @@ export const FilterSection = styled.div`
   margin-top: 20px;
   gap: 25px;
   justify-content: center;
-  
 `;
-
-
 
 export const Checked = styled.div`
   width: 20px;
@@ -80,14 +83,21 @@ export const Checked = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 15px;
-  border: ${props => props.isClicked ? "none" : "1px solid hsl(233, 11%, 84%)" };
-  background: ${props => props.isClicked ? "linear-gradient(to right ,  hsl(192, 100%, 67%) ,hsl(280, 87%, 65%))" : 0}
-  
+  border: ${(props) =>
+    props.isClicked ? "none" : "1px solid hsl(233, 11%, 84%)"};
+  background: ${(props) =>
+    props.isClicked
+      ? "linear-gradient(to right ,  hsl(192, 100%, 67%) ,hsl(280, 87%, 65%))"
+      : 0};
 `;
 
 export const CheckedImg = styled.img`
-
-
-  transform: translate(-5%,15%);
+  transform: translate(-5%, 15%);
   display: block;
-`
+`;
+
+export const ButtonDelete = styled.img`
+  margin-right: 20px;
+  width: 10px;
+  height: 10px;
+`;
