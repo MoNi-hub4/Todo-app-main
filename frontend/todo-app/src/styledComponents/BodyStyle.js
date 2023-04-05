@@ -67,6 +67,7 @@ export const FilterSection = styled.div`
   margin-top: 20px;
   gap: 25px;
   justify-content: center;
+  
 `;
 
 
@@ -85,6 +86,7 @@ export const Checked = styled.div`
 `;
 
 export const CheckedImg = styled.img`
+
 
   transform: translate(-5%,15%);
   display: block;

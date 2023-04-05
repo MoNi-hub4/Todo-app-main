@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
+import axios from "axios";
 import {
   Checked,
   CheckedImg,
@@ -16,6 +17,20 @@ import CheckedIcon from "../images/icon-check.svg";
 
 const Body = () => {
   const [isClicked, setisClicked] = useState(true);
+  const [Task , setTask] = useState(null);
+
+  useEffect(() => {
+    fetchTasks();
+  } , [])
+
+  // Fetch Data
+  const fetchTasks = async () => {
+    //Fetch the Todos
+    const res = await axios.get("http://localhost:3000/todo")
+    //Set to state
+    setTask(res.data.todos);
+    console.log(res.data.todos)
+  }
 
   return (
     <SecondSection>
@@ -28,15 +43,16 @@ const Body = () => {
           ></InputBox>
         </CreateTodo>
         <TodoBox>
-          <Todo>
-            <Checked isClicked = {isClicked} onClick={() => setisClicked(!isClicked)}>
-              {isClicked && <CheckedImg src={CheckedIcon}></CheckedImg>}
-            </Checked>
-            Jog around the part 3x
-          </Todo>
+          {Task && Task.map((task) => {
+            return <Todo key={task._id}><Checked isClicked = {isClicked} onClick={() => setisClicked(!isClicked)}>
+            {isClicked && <CheckedImg src={CheckedIcon}></CheckedImg>}
+          </Checked>{task.task}</Todo>
+          } )}
+
+          
 
           <TodoDetailBox>
-            <div>5 items left</div>
+            {Task && <div>{Task.length} items left</div>}
             <div>Clear Completed</div>
           </TodoDetailBox>
         </TodoBox>
