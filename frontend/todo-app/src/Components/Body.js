@@ -25,19 +25,33 @@ const Body = () => {
     isCompleted: 0,
   });
 
+
+
+  
+
   useEffect(() => {
     fetchTasks();
   }, []);
+
+  
+  
 
   // Fetch Data
   const fetchTasks = async () => {
     //Fetch the Todos
     const res = await axios.get("http://localhost:3000/todo");
     //Set to state
-    setTask(res.data.todos);
-    console.log(res.data.todos);
+    setTask(() => res.data.todos.map((task) => {
+      return{
+        ...task,
+        isClicked:false,
+      }
+    }));
+
+    // console.log(Task);
   };
 
+  Task && console.log(Task);
   // Update Create todo field
   const updateCreateTodoField = (e) => {
     const { name, value } = e.target;
@@ -50,22 +64,36 @@ const Body = () => {
 
   // Create Todo
   const CreateTask = async () => {
-    
-
     //Create the Todo
     const res = await axios.post("http://localhost:3000/todo", createTodo);
-    
+
     console.log(res);
     // Set State
-    setTask([...Task, res.data.todo])
-    setCreateTodo({task:"" , isCompleted:0});
+    setTask([...Task, res.data.todo]);
+    setCreateTodo({ task: "", isCompleted: 0 });
   };
+
+  // Delete Todo
+  const DeleteTask = async (_id) => {
+    // Delete Task
+    await axios.delete(`http://localhost:3000/todo/${_id}`);
+
+    //Update the state
+    const NewTasks = [...Task].filter((task) => {
+      return task._id !== _id;
+    });
+
+    setTask(NewTasks);
+  };
+
+  // Update Todo
 
   return (
     <SecondSection>
       <SectionContent>
         <CreateTodo>
-          <InputBox onBlur={CreateTask}
+          <InputBox
+            onBlur={CreateTask}
             onChange={updateCreateTodoField}
             value={createTodo.task}
             placeholder="Create a new todo..."
@@ -77,18 +105,20 @@ const Body = () => {
           {Task &&
             Task.map((task) => {
               return (
-                <Todo key={task._id}>
+                <Todo key={task._id} onClick={() => console.log(task._id)}>
                   <TodoDiv>
-                  <Checked isClicked={task.isCompleted}>
-                    {task.isCompleted && (
-                      <CheckedImg src={CheckedIcon}></CheckedImg>
-                    )}
-                  </Checked>
-                  {task.task} 
+                    <Checked isClicked={task.isCompleted}>
+                      {task.isCompleted && (
+                        <CheckedImg src={CheckedIcon}></CheckedImg>
+                      )}
+                    </Checked>
+                    {task.task}
                   </TodoDiv>
                   
-            
-                  <ButtonDelete src={CrossIcon}></ButtonDelete>
+                  <ButtonDelete
+                    src={CrossIcon}
+                    onClick={() => DeleteTask(task._id)}
+                  ></ButtonDelete>
                 </Todo>
               );
             })}

@@ -40,6 +40,7 @@ export const Todo = styled.div`
   height: 50px;
   background: #fff;
   border-bottom: 1px solid hsl(233, 11%, 84%);
+  
 `;
 
 export const TodoDiv = styled.div`
@@ -61,6 +62,7 @@ export const InputBox = styled.input`
   outline: none;
   border: 0 none;
   font-size: 15px;
+  
 `;
 
 export const FilterSection = styled.div`
