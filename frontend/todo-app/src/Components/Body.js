@@ -29,7 +29,7 @@ const Body = () => {
     _id: null,
     task: "",
     isCompleted: 0,
-    isClicked:0,
+    isClicked: 0,
   });
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const Body = () => {
     //Create the Todo
     const res = await axios.post("http://localhost:3000/todo", createTodo);
 
-    console.log(res);
+    
     // Set State
     setTask([...Task, res.data.todo]);
     setCreateTodo({ task: "", isCompleted: 0 });
@@ -90,17 +90,15 @@ const Body = () => {
   // Update isClicked ==>> find the id on the Task state and update it through the clicked data
   const todoClicked = (task) => {
     task.isClicked = true;
-    console.log(task);
     const newTask = [...Task];
     const FindIndex = Task.findIndex((x) => x._id === task._id);
     newTask[FindIndex] = task;
     setTask(newTask);
     setUpdateTodo({
       _id: task._id,
-    task: task.task,
-    isCompleted: task.isCompleted,
-    })
-
+      task: task.task,
+      isCompleted: task.isCompleted,
+    });
   };
 
   // Handle update field change
@@ -113,13 +111,29 @@ const Body = () => {
     });
   };
 
-  const updateTask = async() => {
-    const {task , isCompleted} = updateTodo;
+  const updateTask = async () => {
+    const { task, isCompleted } = updateTodo;
     // Send the update req
-    const res = await axios.put(`http://localhost:3000/todo/${updateTodo._id}` , {task,isCompleted} )
-    fetchTasks();
-    console.log(res);
-  }
+    const res = await axios.put(
+      `http://localhost:3000/todo/${updateTodo._id}`,
+      { task, isCompleted }
+    );
+
+    
+    const newTasks = [...Task];
+    const TaskIndex = Task.findIndex((x) => {
+      return x._id === updateTodo._id;
+    });
+    newTasks[TaskIndex] = res.data.todo;
+    setTask(() =>
+      newTasks.map((task) => {
+        return {
+          ...task,
+          isClicked: false,
+        };
+      })
+    );
+  };
 
   return (
     <SecondSection>
@@ -145,7 +159,7 @@ const Body = () => {
                         <CheckedImg src={CheckedIcon}></CheckedImg>
                       )}
                     </Checked>
-                    {task.task}
+                    {!task.isClicked && task.task}
                     {task.isClicked && (
                       <UpdateTask
                         name="task"
