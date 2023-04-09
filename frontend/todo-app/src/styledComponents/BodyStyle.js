@@ -108,4 +108,5 @@ export const UpdateTask = styled.input`
   border: 0 none;
   font-size: 15px;
   position: absolute;
+  left: 33px;
 `;

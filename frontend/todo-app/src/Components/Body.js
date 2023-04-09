@@ -25,29 +25,30 @@ const Body = () => {
     task: "",
     isCompleted: 0,
   });
-
-
-
-  
+  const [updateTodo, setUpdateTodo] = useState({
+    _id: null,
+    task: "",
+    isCompleted: 0,
+    isClicked:0,
+  });
 
   useEffect(() => {
     fetchTasks();
   }, []);
-
-  
-  
 
   // Fetch Data
   const fetchTasks = async () => {
     //Fetch the Todos
     const res = await axios.get("http://localhost:3000/todo");
     //Set to state
-    setTask(() => res.data.todos.map((task) => {
-      return{
-        ...task,
-        isClicked:false,
-      }
-    }));
+    setTask(() =>
+      res.data.todos.map((task) => {
+        return {
+          ...task,
+          isClicked: false,
+        };
+      })
+    );
 
     // console.log(Task);
   };
@@ -90,10 +91,34 @@ const Body = () => {
   const todoClicked = (task) => {
     task.isClicked = true;
     console.log(task);
-    const newTask = [...Task]
-    const FindIndex = Task.findIndex(x => x._id === task._id)
+    const newTask = [...Task];
+    const FindIndex = Task.findIndex((x) => x._id === task._id);
     newTask[FindIndex] = task;
-    setTask(newTask)
+    setTask(newTask);
+    setUpdateTodo({
+      _id: task._id,
+    task: task.task,
+    isCompleted: task.isCompleted,
+    })
+
+  };
+
+  // Handle update field change
+  const handleupdateFieldChange = (e) => {
+    const { value, name } = e.target;
+
+    setUpdateTodo({
+      ...updateTodo,
+      [name]: value,
+    });
+  };
+
+  const updateTask = async() => {
+    const {task , isCompleted} = updateTodo;
+    // Send the update req
+    const res = await axios.put(`http://localhost:3000/todo/${updateTodo._id}` , {task,isCompleted} )
+    fetchTasks();
+    console.log(res);
   }
 
   return (
@@ -113,7 +138,7 @@ const Body = () => {
           {Task &&
             Task.map((task) => {
               return (
-                <Todo key={task._id} onDoubleClick={() => todoClicked(task)} >
+                <Todo key={task._id} onDoubleClick={() => todoClicked(task)}>
                   <TodoDiv>
                     <Checked isClicked={task.isCompleted}>
                       {task.isCompleted && (
@@ -121,9 +146,17 @@ const Body = () => {
                       )}
                     </Checked>
                     {task.task}
-                    {task.isClicked && <UpdateTask value={task.task} onBlur={fetchTasks} autoFocus></UpdateTask>}
+                    {task.isClicked && (
+                      <UpdateTask
+                        name="task"
+                        onChange={handleupdateFieldChange}
+                        value={updateTodo.task}
+                        onBlur={updateTask}
+                        autoFocus
+                      ></UpdateTask>
+                    )}
                   </TodoDiv>
-                  
+
                   <ButtonDelete
                     src={CrossIcon}
                     onClick={() => DeleteTask(task._id)}
