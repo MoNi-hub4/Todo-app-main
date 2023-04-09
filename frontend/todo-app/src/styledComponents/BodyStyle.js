@@ -40,12 +40,12 @@ export const Todo = styled.div`
   height: 50px;
   background: #fff;
   border-bottom: 1px solid hsl(233, 11%, 84%);
-  
 `;
 
 export const TodoDiv = styled.div`
   display: flex;
   align-items: center;
+  position: relative;
 `;
 
 export const TodoDetailBox = styled.div`
@@ -62,7 +62,6 @@ export const InputBox = styled.input`
   outline: none;
   border: 0 none;
   font-size: 15px;
-  
 `;
 
 export const FilterSection = styled.div`
@@ -102,4 +101,11 @@ export const ButtonDelete = styled.img`
   margin-right: 20px;
   width: 10px;
   height: 10px;
+`;
+
+export const UpdateTask = styled.input`
+  outline: none;
+  border: 0 none;
+  font-size: 15px;
+  position: absolute;
 `;

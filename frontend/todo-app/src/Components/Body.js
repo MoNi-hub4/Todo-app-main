@@ -13,6 +13,7 @@ import {
   TodoDiv,
   TodoBox,
   TodoDetailBox,
+  UpdateTask,
 } from "../styledComponents/BodyStyle";
 
 import CheckedIcon from "../images/icon-check.svg";
@@ -51,7 +52,6 @@ const Body = () => {
     // console.log(Task);
   };
 
-  Task && console.log(Task);
   // Update Create todo field
   const updateCreateTodoField = (e) => {
     const { name, value } = e.target;
@@ -86,7 +86,15 @@ const Body = () => {
     setTask(NewTasks);
   };
 
-  // Update Todo
+  // Update isClicked ==>> find the id on the Task state and update it through the clicked data
+  const todoClicked = (task) => {
+    task.isClicked = true;
+    console.log(task);
+    const newTask = [...Task]
+    const FindIndex = Task.findIndex(x => x._id === task._id)
+    newTask[FindIndex] = task;
+    setTask(newTask)
+  }
 
   return (
     <SecondSection>
@@ -105,7 +113,7 @@ const Body = () => {
           {Task &&
             Task.map((task) => {
               return (
-                <Todo key={task._id} onClick={() => console.log(task._id)}>
+                <Todo key={task._id} onDoubleClick={() => todoClicked(task)} >
                   <TodoDiv>
                     <Checked isClicked={task.isCompleted}>
                       {task.isCompleted && (
@@ -113,6 +121,7 @@ const Body = () => {
                       )}
                     </Checked>
                     {task.task}
+                    {task.isClicked && <UpdateTask value={task.task} onBlur={fetchTasks} autoFocus></UpdateTask>}
                   </TodoDiv>
                   
                   <ButtonDelete
