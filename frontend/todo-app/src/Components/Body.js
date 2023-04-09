@@ -119,7 +119,7 @@ const Body = () => {
       { task, isCompleted }
     );
 
-    
+    // Updating the State
     const newTasks = [...Task];
     const TaskIndex = Task.findIndex((x) => {
       return x._id === updateTodo._id;
