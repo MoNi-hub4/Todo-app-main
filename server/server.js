@@ -2,6 +2,9 @@ const express = require("express");
 const connectToDB = require("./config/connectToDB");
 const Todo = require("./models/todo");
 var cors = require("cors");
+if(process.env.NODE_ENV != "production"){
+  require("dotenv").config();
+}
 
 const app = express();
 
@@ -78,4 +81,4 @@ app.delete("/todo/:_id", async (req, res) => {
 
 connectToDB;
 
-app.listen(3000);
+app.listen(process.env.PORT);

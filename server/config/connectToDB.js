@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
+if(process.env.NODE_ENV != "production"){
+  require("dotenv").config();
+}
 
 async function connectToDB() {
   try {
-    await mongoose.connect(
-      "mongodb+srv://moni:1M2o3n4i@todo.jtzrgec.mongodb.net/?retryWrites=true&w=majority"
+    await mongoose.connect(process.env.URI
+      
     );
     console.log("Connected to Database");
   } catch (err) {
