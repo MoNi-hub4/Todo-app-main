@@ -85,9 +85,9 @@ export const Checked = styled.div`
   justify-content: center;
   margin-right: 15px;
   border: ${(props) =>
-    props.isClicked ? "none" : "1px solid hsl(233, 11%, 84%)"};
+    props.isCompleted ? "none" : "1px solid hsl(233, 11%, 84%)"};
   background: ${(props) =>
-    props.isClicked
+    props.isCompleted
       ? "linear-gradient(to right ,  hsl(192, 100%, 67%) ,hsl(280, 87%, 65%))"
       : 0};
 `;

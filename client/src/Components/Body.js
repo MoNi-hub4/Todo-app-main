@@ -36,6 +36,8 @@ const Body = () => {
     fetchTasks();
   }, []);
 
+  Task && console.log(Task)
+
   // Fetch Data
   const fetchTasks = async () => {
     //Fetch the Todos
@@ -50,7 +52,7 @@ const Body = () => {
       })
     );
 
-    // console.log(Task);
+    
   };
 
   // Update Create todo field
@@ -136,6 +138,18 @@ const Body = () => {
     );
   };
 
+  // Toggle Complete
+  const toggleComplete = async(task) => {
+
+    const isCompleted = !task.isCompleted;
+    const res = await axios.put(
+      `https://todo-app-main-sandy.vercel.app/todo/${task._id}`,
+      { isCompleted }
+    );
+    console.log(res)
+
+  }
+
   return (
     <SecondSection>
       <SectionContent>
@@ -155,7 +169,7 @@ const Body = () => {
               return (
                 <Todo key={task._id} onDoubleClick={() => todoClicked(task)}>
                   <TodoDiv>
-                    <Checked isClicked={task.isCompleted}>
+                    <Checked isCompleted={task.isCompleted} onClick={() => toggleComplete(task)}>
                       {task.isCompleted && (
                         <CheckedImg src={CheckedIcon}></CheckedImg>
                       )}
