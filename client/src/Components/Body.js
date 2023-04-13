@@ -39,7 +39,7 @@ const Body = () => {
   // Fetch Data
   const fetchTasks = async () => {
     //Fetch the Todos
-    const res = await axios.get("/todo");
+    const res = await axios.get("https://todo-app-main-sandy.vercel.app/todo");
     //Set to state
     setTask(() =>
       res.data.todos.map((task) => {
@@ -66,7 +66,7 @@ const Body = () => {
   // Create Todo
   const CreateTask = async () => {
     //Create the Todo
-    const res = await axios.post("/todo", createTodo);
+    const res = await axios.post("https://todo-app-main-sandy.vercel.app/todo", createTodo);
 
     
     // Set State
@@ -77,7 +77,7 @@ const Body = () => {
   // Delete Todo
   const DeleteTask = async (_id) => {
     // Delete Task
-    await axios.delete(`/todo/${_id}`);
+    await axios.delete(`https://todo-app-main-sandy.vercel.app/todo/${_id}`);
 
     //Update the state
     const NewTasks = [...Task].filter((task) => {
@@ -116,7 +116,7 @@ const Body = () => {
     const { task, isCompleted } = updateTodo;
     // Send the update req
     const res = await axios.put(
-      `/todo/${updateTodo._id}`,
+      `https://todo-app-main-sandy.vercel.app/todo/${updateTodo._id}`,
       { task, isCompleted }
     );
 
