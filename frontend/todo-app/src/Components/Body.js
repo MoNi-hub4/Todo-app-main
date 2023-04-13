@@ -111,6 +111,7 @@ const Body = () => {
     });
   };
 
+  // Update Todo
   const updateTask = async () => {
     const { task, isCompleted } = updateTodo;
     // Send the update req
