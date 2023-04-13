@@ -148,6 +148,22 @@ const Body = () => {
     );
     console.log(res)
 
+    //Update State
+    const newTasks = [...Task];
+    const TaskIndex = Task.findIndex((x) => {
+      return x._id === task._id;
+    });
+    newTasks[TaskIndex] = res.data.todo;
+    console.log(newTasks)
+    setTask(() =>
+      newTasks.map((task) => {
+        return {
+          ...task,
+          isClicked: false,
+        };
+      })
+    );
+
   }
 
   return (
